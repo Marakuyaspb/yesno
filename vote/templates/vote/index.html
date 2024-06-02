@@ -6,11 +6,15 @@
 <div class='container mt-5'>
 
 	
-		<div class="d-flex justify-content-center py-1">
+		<div class="d-flex justify-content-center py-5">
+
 			<form method="POST">
+
 				{% csrf_token %}
 				<button type="submit" name="voice"  value="True" class='btn btn-warning btn-lg me-1'>YES</button>
+
 				<button type="submit" name="voice"  value="False" class='btn btn-danger btn-lg ms-1'>NO</button>
+				
 			</form>
 			
 		</div>

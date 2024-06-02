@@ -1,19 +1,24 @@
 import os
+from django.utils import timezone
 from django.shortcuts import render
-from .models import Voting
 from .forms import VotingForm
+
 
 def index(request):
 	if request.method == 'POST':
 		voice = request.POST.get('voice')
-		if voice == 'True':
-			voting_form = VotingForm({'voice': True})
-		else:
-			voting_form = VotingForm({'voice': False})
-		
+		create = timezone.now()
+
+		voting_form = VotingForm({'voice': voice, 'create': create})
+
 		if voting_form.is_valid():
-			voting_form.save()
-			return redirect('index')
+			instance = voting_form.save(commit=False)
+			instance.voice = voice
+			instance.create = create
+			instance.save()
+			print("Form saved successfully!")
+		else:
+			print("Form validation errors:", voting_form.errors)
 	else:
 		voting_form = VotingForm()
 	
